@@ -42,16 +42,12 @@ class UsersController extends Controller
             'email'=>'required|email|unique:users|max:255',
             'password'=>'required|min:6'
         ]);
-        try {
-            $user = User::create([
-                'name' => $request->get('name'),
-                'email' => $request->get('email'),
-                'password' => bcrypt($request->get('password')),
-            ]);
-            User::sendEmailConfirmationTo($user);
-        } catch (\Exception $exception) {
-            throw new \ErrorException($exception->getMessage(), $exception->getCode());
-        }
+        $user = User::create([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => bcrypt($request->get('password')),
+        ]);
+        User::sendEmailConfirmationTo($user);
 
         session()->flash('success', '验证邮件已发送到你的注册邮箱上，请注意查收。');
 
