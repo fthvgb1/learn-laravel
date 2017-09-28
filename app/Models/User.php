@@ -72,9 +72,23 @@ class User extends Authenticatable
         });
     }
 
+    public function feed()
+    {
+        return $this->statuses()->orderBy('created_at', 'desc');
+    }
+
     public function gravatar($size='100')
     {
         $hash = md5(strtolower(trim($this->attributes['email'])));
         return "http://www.gravatar.com/avatar/$hash?s=$size";
+    }
+
+    /**
+     * 用户有多条微博
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
     }
 }
