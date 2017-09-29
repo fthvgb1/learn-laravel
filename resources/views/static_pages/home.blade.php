@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title','静态页首页')
+@section('title','首页')
 @section('content')
     @if(\Illuminate\Support\Facades\Auth::check())
         <div class="row">
@@ -13,6 +13,10 @@
             <aside class="col-md-4">
                 <section class="user_info">
                     @include('shared.user_info',['user'=>\Illuminate\Support\Facades\Auth::user()])
+                </section>
+
+                <section class="stats">
+                    @include('shared.stats',['user'=>\Illuminate\Support\Facades\Auth::user()])
                 </section>
             </aside>
         </div>
